@@ -1,22 +1,22 @@
 # Definition of Done (DoD)
 
-Para que una historia o tarea se considere "Terminada" (Done), debe cumplir con los siguientes requisitos:
+Para que una historia de usuario o tarea técnica se considere "Terminada" (Done), debe cumplir con los siguientes requisitos mínimos:
 
-## Calidad de Código
-- [ ] El código Python cumple con PEP-8 (en la medida de lo posible).
-- [ ] [cite_start]Los scripts de Bash tienen `set -euo pipefail` al inicio[cite: 76].
-- [ ] [cite_start]**Importante:** Todos los comentarios explicativos en el código están en **español**[cite: 167].
-- [ ] [cite_start]No hay caracteres extraños ni marcas de generación automática por IA en el código o documentación[cite: 168].
+## 1. Calidad de Código
+* [ ] **Comentarios en Español:** Todo el código (Python/Bash) debe estar comentado en español explicando la intención.
+* [ ] **Sin "Basura" de IA:** No deben quedar caracteres extraños, bloques de código innecesarios o comentarios generados automáticamente sin revisión.
+* [ ] **Linter:** El código Python debe respetar estándares básicos (PEP-8) y no tener errores de sintaxis.
 
-## Funcionalidad y Pruebas
-- [ ] [cite_start]Los targets del `Makefile` asociados funcionan sin intervención manual[cite: 41].
-- [ ] Si aplica, se han realizado pruebas manuales locales (`make test` o ejecución directa).
-- [ ] [cite_start]No existen "TODO" críticos pendientes en el código entregado[cite: 42].
+## 2. Funcionalidad y Automatización
+*[ ] **Makefile Ejecutable:** Los comandos `make setup`, `make build`, `make test` deben funcionar sin intervención manual.
+* [ ] **Pruebas Locales:** La funcionalidad implementada ha sido verificada localmente (ej. el CLI cifra/descifra correctamente).
+* [ ] **Sin TODOs Críticos:** No hay tareas pendientes marcadas como "TODO" o "FIXME" que afecten la funcionalidad principal.
 
-## Seguridad
-- [ ] [cite_start]No se han subido archivos `.env` ni credenciales reales al repositorio (verificar `.gitignore`)[cite: 176].
-- [ ] [cite_start]Las imágenes Docker no usan el tag `:latest`, sino versiones específicas o hash[cite: 181].
-- [ ] [cite_start]El contenedor final no corre como `root`[cite: 84].
+## 3. Seguridad
+* [ ] **Gestión de Secretos:** NO se han subido archivos `.env` reales, claves privadas o credenciales al repositorio git.
+* [ ] **Docker Hardening:** Las imágenes Docker no usan el usuario `root` (deben usar `USER appuser` u otro UID).
+* [ ] **Imágenes Base:** Se usan versiones fijas (ej. `python:3.12-slim`) y nunca `:latest`.
 
-## Documentación
-- [ ] La documentación en `docs/` está actualizada con los cambios del Sprint.
+## 4. Documentación
+* [ ] El archivo `docs/sprint-backlog-sprintX.md` refleja el trabajo realizado.
+* [ ] Si hubo cambios de arquitectura, se actualizó el `README.md`.
