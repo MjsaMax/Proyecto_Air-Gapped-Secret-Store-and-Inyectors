@@ -101,6 +101,7 @@ python secrets_cli.py list                                          # Listar los
 python secrets_cli.py get SECRETO0                                  # Se ingresa el password para obtener el contenido                                                    
 python secrets_cli.py run SECRETO0 -- 'bash -c "echo $SECRETO0"'    # Ejecucion de inyeccion de secreto como variable de entorno, solocita el password para mostrarlo.
 ```
+
 ### ISSUE #3 App Dummy y Dockerfile Seguro
 **Estado:** Done / En Progreso
 **Descripción:** Implementación de la aplicación "víctima" que recibirá el secreto y su empaquetado seguro.
@@ -119,3 +120,34 @@ python secrets_cli.py run SECRETO0 -- 'bash -c "echo $SECRETO0"'    # Ejecucion 
 **Validación:**
 * `make build` construye la imagen correctamente.
 * La imagen ejecutada manualmente muestra que el usuario no es root (`whoami` -> `appuser`).
+=======
+Historia 2: Aplicación de Prueba (App)
+
+ID: #3
+
+Título: Crear App Python básica con validación de entorno.
+
+Descripción Corta: Implementar una aplicación web ligera (Flask) que valide la inyección de API_TOKEN a través de variables de entorno para simular una conexión exitosa.
+
+Criterios de Aceptación:
+1. La app expone un endpoint /health que responde 200 OK.
+2. La ruta principal / valida la existencia de os.getenv('API_TOKEN').
+3. El make dev finaliza con la app en estado funcional.
+
+Responsable(s): Poma Walter
+
+Historia 3: Infraestructura Segura (Docker)
+
+ID: #3
+
+Título: Dockerfile endurecido y Makefile.
+
+Descripción Corta: Crear la imagen Docker con el máximo nivel de seguridad posible y optimizar el proceso de construcción.
+
+Criterios de Aceptación:
+1. El Dockerfile utiliza python:3.12-slim.
+2. El contenedor se ejecuta con un usuario no privilegiado (appuser / UID > 0).
+3. El Makefile incluye los targets build y dev.
+
+Responsable(s): Poma Walter
+
