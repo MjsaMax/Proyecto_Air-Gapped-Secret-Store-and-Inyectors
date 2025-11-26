@@ -11,7 +11,7 @@
 # • make compose-up / make compose-down - Para proyectos con Docker Compose.
 # Regla: nada crítico se ejecuta "a mano" si puede y debe estar en un target de Make + script 
 # Bash.
-.PHONY: setup dev build test scan 
+.PHONY: setup dev build test scan help
 
 APP_NAME=app-ejemplo
 DOCKERFILE=docker/Dockerfile
@@ -52,3 +52,14 @@ scan:
 	@echo "[+] (Simulado) Ejecutando escaneo de seguridad..."
 	@echo "En Desarrollo..."
 	@echo "[->] En Desarrollo..."
+
+help: 
+	@echo "Uso: make [target]"
+	@echo ""
+	@echo "Targets disponibles:"
+	@echo "  setup   - Crear entorno virtual e instalar dependencias"
+	@echo "  build   - Construir la imagen Docker $(IMAGE)"
+	@echo "  dev     - Ejecutar el contenedor de desarrollo localmente"
+	@echo "  test    - Ejecutar pruebas unitarias con pytest"
+	@echo "  scan    - Ejecutar escaneo de seguridad (simulado)"
+	@echo "  help    - Mostrar este mensaje de ayuda"
