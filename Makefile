@@ -36,7 +36,7 @@ build:
 
 dev:
 	@echo "[+] Ejecutando entorno de desarrollo..."
-	docker run --rm -it -p 8080:80 $(IMAGE)
+	docker run --rm -it -p 5000:5000 -e API_TOKEN="clave-dev" $(IMAGE)
 	@echo "[->] dev finalizado."
 
 test:
