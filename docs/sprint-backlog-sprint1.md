@@ -1,8 +1,3 @@
-<!-- o Historias y tareas de cada sprint. -->
-<!-- o Para cada historia: -->
-<!-- § ID, título, descripción corta. -->
-<!-- § Criterios de aceptación. -->
-<!-- § Responsable(s). -->
 
 ##### VIDEO_SPRINT1: https://1drv.ms/f/c/fdb226ef3c2e079a/IgCuxgxCbmM5S4WuBql47mp6AZX8yf1Zn-jdvSnu5aZ04oA?e=ES2OCw
 ## SPRINT1_SerranoMax
@@ -106,9 +101,29 @@ python secrets_cli.py list                                          # Listar los
 python secrets_cli.py get SECRETO0                                  # Se ingresa el password para obtener el contenido                                                    
 python secrets_cli.py run SECRETO0 -- 'bash -c "echo $SECRETO0"'    # Ejecucion de inyeccion de secreto como variable de entorno, solocita el password para mostrarlo.
 ```
+
+### ISSUE #3 App Dummy y Dockerfile Seguro
+**Estado:** Done / En Progreso
+**Descripción:** Implementación de la aplicación "víctima" que recibirá el secreto y su empaquetado seguro.
+
+**Archivos creados/modificados:**
+1.  `app/main.py`:
+    * Script que lee la variable de entorno `API_TOKEN`.
+    * Simula una conexión exitosa si el token existe, o falla si no está.
+2.  `docker/Dockerfile`:
+    * Base: `python:3.12-slim` (Tag inmutable).
+    * Seguridad: Creación de usuario `appuser` (UID 1000) para ejecución **non-root**.
+    * Optimización: Copia de `requirements.txt` y código fuente en capas separadas.
+3.  `.dockerignore`:
+    * Exclusión de carpetas `.git`, `__pycache__`, `.venv`, `secrets/storage` y `docs`.
+
+**Validación:**
+* `make build` construye la imagen correctamente.
+* La imagen ejecutada manualmente muestra que el usuario no es root (`whoami` -> `appuser`).
+=======
 Historia 2: Aplicación de Prueba (App)
 
-ID: #LO DEFINES AARON
+ID: #3
 
 Título: Crear App Python básica con validación de entorno.
 
@@ -123,7 +138,7 @@ Responsable(s): Poma Walter
 
 Historia 3: Infraestructura Segura (Docker)
 
-ID: #LO DEFINES
+ID: #3
 
 Título: Dockerfile endurecido y Makefile.
 
@@ -135,3 +150,4 @@ Criterios de Aceptación:
 3. El Makefile incluye los targets build y dev.
 
 Responsable(s): Poma Walter
+
