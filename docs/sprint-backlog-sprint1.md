@@ -3,3 +3,106 @@
 <!-- § ID, título, descripción corta. -->
 <!-- § Criterios de aceptación. -->
 <!-- § Responsable(s). -->
+
+##### VIDEO_SPRINT1: https://1drv.ms/f/c/fdb226ef3c2e079a/IgCuxgxCbmM5S4WuBql47mp6AZX8yf1Zn-jdvSnu5aZ04oA?e=ES2OCw
+## SPRINT1_SerranoMax
+
+ISSUES REALIZADOS: #1 #2 #9 
+### ISSUE #1 Dev makefile
+Creación de Estructura de Carpetas.
+```bash
+.
+├── Makefile
+├── README.md
+├── app
+│   ├── main.py
+│   └── requirements.txt
+├── docker
+│   ├── Dockerfile
+│   └── README.md
+├── docs
+│   ├── definition-of-done.md
+│   ├── metrics.md
+│   ├── risk-register.md
+│   ├── sprint-backlog-sprint1.md
+│   ├── sprint-backlog-sprint2.md
+│   └── vision.md
+├── scripts
+│   ├── README.md
+│   ├── run-bad-example.sh
+│   ├── run-with-secret.sh
+│   └── store-secret.sh
+└── secrets
+    ├── secrets_cli.py
+    └── storage
+        └── SECRETO0.enc
+
+7 directories, 18 files
+```
+Creación de el Makefile en la raíz con los targets obligatorios: setup, dev, build, test, scan usando variables de entorno. Los puertos asignados son 8080 para el host y 80 para el contenedor. Creación de venv e instalando pytest.
+Completado de ISSUE #1.
+USO:
+``` bash
+.PHONY: setup dev build test scan 
+
+APP_NAME=app-ejemplo
+DOCKERFILE=docker/Dockerfile
+TAG=0.0.1
+IMAGE=$(APP_NAME):$(TAG)
+PYTHON=python3
+
+setup: # Crea venv e instala requirements.txt
+	@echo "[+] Preparando entorno local..." 			
+	$(PYTHON) -m venv .venv
+	.venv/bin/pip install --upgrade pip
+	@if [ -f app/requirements.txt ]; then \
+		echo "[+] Instalando dependencias..."; \
+		.venv/bin/pip install -r app/requirements.txt; \
+	fi
+	@echo "[->] setup completado."
+
+build: # Construye el Dockerfile
+	@echo "[+] Construyendo imagen Docker: $(IMAGE)"
+	docker build -t $(IMAGE) -f $(DOCKERFILE) .
+	@echo "[->] build completado."
+ 
+dev:	# Ejecuta en el puerto 8080 del host y 80 del contenedor
+	@echo "[+] Ejecutando entorno de desarrollo..."
+	docker run --rm -it -p 8080:80 $(IMAGE)
+	@echo "[->] dev finalizado."
+
+test:   # Test usando pytest
+	@echo "[+] Ejecutando tests..."
+	@if [ -x ".venv/bin/pytest" ]; then \
+		.venv/bin/pytest -q; \
+	else \
+		echo "[!] pytest no está instalado. Instálalo usando un venv"; \
+	fi
+	@echo "[->] test completado."
+
+scan:  # Scaneo en desarrollo
+	@echo "[+] (Simulado) Ejecutando escaneo de seguridad..."
+	@echo "En Desarrollo..."
+	@echo "[->] En Desarrollo..."
+```
+### ISSUE #2 Secrets cli
+Creacion de secrets_cli.py
+librerias:
+
+argparse para los argumentos en python
+json: Intente usar JSON para la gestión en STORAGE, pero me di cuenta que no debe estar en texto plano
+os, sys,subprocess y path: para el manejo de directorios, archivo de storage/ y inyeccion de secretos en entorno de subproceso.
+Se realiza una importación interna de getpass para ocultar el texto de password ingresado.
+cryptography.fernet: Encontré esa ncriptación simple como solicita la pc.
+base64: para la gestion de encriptación en entornos.
+Creacion de metodos como get,store, list y getcipher esta con sus descripciones
+SE RESUELVE EL ISSUE #2
+
+Para ejecutar la funcionalidad de secretos:
+EN secrets/
+```bash
+python secrets_cli.py store SECRETO0 CONTENIDO_SECRETO              # Para crear un nuevo secreto guardando su contenido y se ingresa un password
+python secrets_cli.py list                                          # Listar los secretos en storage/ imprimiendolos
+python secrets_cli.py get SECRETO0                                  # Se ingresa el password para obtener el contenido                                                    
+python secrets_cli.py run SECRETO0 -- 'bash -c "echo $SECRETO0"'    # Ejecucion de inyeccion de secreto como variable de entorno, solocita el password para mostrarlo.
+```

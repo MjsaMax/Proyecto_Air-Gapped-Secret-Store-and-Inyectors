@@ -2,5 +2,5 @@
 <!-- § Tests automáticos en verde. -->
 <!-- § make <target> ejecutable sin pasos manuales. -->
 <!-- § No hay TODO críticos sin justificar. -->
-<!-- § Evidencias de seguridad generadas (SBOM/scan/report). -->
+<!-- § Evidencias de seguridad generadas (scan/report). -->
 <!-- § README actualizado. -->
