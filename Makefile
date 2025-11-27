@@ -11,7 +11,7 @@
 # • make compose-up / make compose-down - Para proyectos con Docker Compose.
 # Regla: nada crítico se ejecuta "a mano" si puede y debe estar en un target de Make + script 
 # Bash.
-.PHONY: setup dev build test scan help
+.PHONY: setup dev build test scan help sotre-secret run-secure run-insecure
 
 APP_NAME=app-secret-store
 DOCKERFILE=docker/Dockerfile
@@ -60,6 +60,24 @@ help:
 	@echo "  setup   - Crear entorno virtual e instalar dependencias"
 	@echo "  build   - Construir la imagen Docker $(IMAGE)"
 	@echo "  dev     - Ejecutar el contenedor de desarrollo localmente"
+	@echo "  store-secret - Guardar un secreto nuevo (Interactivo)"
+	@echo "  run-secure   - Ejecutar con inyección segura de secretos"
 	@echo "  test    - Ejecutar pruebas unitarias con pytest"
 	@echo "  scan    - Ejecutar escaneo de seguridad (simulado)"
 	@echo "  help    - Mostrar este mensaje de ayuda"
+
+store-secret:
+	@echo "[+] Ejecutando script de guardado seguro...
+	@bash scripts/store-secret.sh"
+
+run-secure:
+	@echo "[+] Ejecutando contenedor con inyección segura en memoria..."
+	@bash scripts/run-with-secret.sh
+
+run-insecure:
+	@echo "[!] Ejecutando escenario inseguro (Bad Example)..."
+	@if [ -f scripts/run-bad-example.sh ]; then \
+		bash scripts/run-bad-example.sh; \
+	else \
+		echo "[-] El script inseguro aun no ha sido creado."; \
+	fi

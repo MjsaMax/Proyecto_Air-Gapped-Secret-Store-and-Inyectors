@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-IMAGE="app-ejemplo:0.0.1"
+IMAGE="app-secret-store:v1"
 
 echo "============================================================"
 echo "  ALERTA: Ejecutando DEMO de MALA PRÁCTICA (Inseguro)  "
