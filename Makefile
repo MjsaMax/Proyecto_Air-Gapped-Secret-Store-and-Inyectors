@@ -68,8 +68,8 @@ help:
 	@echo "  help    - Mostrar este mensaje de ayuda"
 
 store-secret:
-	@echo "[+] Ejecutando script de guardado seguro...
-	@bash scripts/store-secret.sh"
+	@echo "[+] Ejecutando script de guardado seguro..."
+	@bash scripts/store-secret.sh
 
 run-secure:
 	@echo "[+] Ejecutando contenedor con inyección segura en memoria..."
