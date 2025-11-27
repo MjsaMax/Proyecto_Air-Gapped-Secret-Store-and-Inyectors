@@ -62,6 +62,7 @@ help:
 	@echo "  dev     - Ejecutar el contenedor de desarrollo localmente"
 	@echo "  store-secret - Guardar un secreto nuevo (Interactivo)"
 	@echo "  run-secure   - Ejecutar con inyección segura de secretos"
+	@echo "  run-insecure   - Ejecutar con inyección insegura de secretos"
 	@echo "  test    - Ejecutar pruebas unitarias con pytest"
 	@echo "  scan    - Ejecutar escaneo de seguridad (simulado)"
 	@echo "  help    - Mostrar este mensaje de ayuda"
