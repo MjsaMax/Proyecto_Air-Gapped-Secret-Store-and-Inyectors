@@ -13,9 +13,9 @@
 # Bash.
 .PHONY: setup dev build test scan help
 
-APP_NAME=app-ejemplo
+APP_NAME=app-secret-store
 DOCKERFILE=docker/Dockerfile
-TAG=0.0.1
+TAG=v1
 IMAGE=$(APP_NAME):$(TAG)
 PYTHON=python3
 
