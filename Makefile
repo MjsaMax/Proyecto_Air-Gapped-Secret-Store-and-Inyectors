@@ -49,9 +49,12 @@ test:
 	@echo "[->] test completado."
 
 scan:
-	@echo "[+] (Simulado) Ejecutando escaneo de seguridad..."
-	@echo "En Desarrollo..."
-	@echo "[->] En Desarrollo..."
+	@echo "[+] Ejecutando análisis estático (SAST) con Bandit..."
+	- .venv/bin/bandit -r app/ secrets/ -ll
+	@echo ""
+	@echo "[+] Ejecutando análisis de dependencias (SCA) con Safety..."
+	- .venv/bin/safety check -r app/requirements.txt
+	@echo "[->] Escaneo de seguridad finalizado."
 
 help: 
 	@echo "Uso: make [target]"
