@@ -27,3 +27,18 @@ Criterios de Aceptación:
 3. Enlace de Onedrive de video_sprint2
 
 Responsable(s): Serrano Max
+
+Historia 18: Escenario Inseguro y Registro de Riesgos
+
+ID: #18
+
+Título: Implementar escenario inseguro (Bad Example) y Registro de Riesgos.
+
+Descripción Corta: Crear un script que demuestre la vulnerabilidad de gestionar secretos en texto plano (archivos .env inseguros) y documentar formalmente los riesgos de seguridad del proyecto.
+
+Criterios de Aceptación:
+1. El script `scripts/run-bad-example.sh` ejecuta un contenedor exponiendo un secreto en un archivo `.env` visible.
+2. Se verifica visualmente en la terminal que el secreto es legible en texto plano.
+3. El archivo `docs/risk-register.md` contiene al menos 5 riesgos identificados con su probabilidad, impacto y plan de mitigación.
+
+Responsable(s): Aaron Davila
