@@ -42,3 +42,39 @@ Criterios de Aceptación:
 3. El archivo `docs/risk-register.md` contiene al menos 5 riesgos identificados con su probabilidad, impacto y plan de mitigación.
 
 Responsable(s): Aaron Davila
+
+Historia 17: Implementación de Scripts de Inyección Segura (Bash)
+
+ID: #17
+
+Título: Implementar scripts de inyección segura (store y run-secure)
+
+Descripción Corta: Desarrollo de scripts en Bash que orquestan la comunicación entre el CLI de Python y el contenedor Docker para garantizar que los secretos se inyecten directamente en memoria RAM, sin tocar el disco.
+
+Criterios de Aceptación:
+
+1. scripts/store-secret.sh: Permite guardar secretos cifrados de forma interactiva (ocultando la entrada de contraseña).
+
+2. scripts/run-with-secret.sh: Desencripta el secreto usando el CLI y lo pasa al contenedor mediante docker run -e API_TOKEN=... sin generar archivos temporales.
+
+3. Seguridad: Se verifica que tras la ejecución no quedan archivos residuales con credenciales en la carpeta del proyecto.
+
+Responsable(s): Poma Walter
+
+Historia 20: Actualización del Makefile y Automatización
+
+ID: #20
+
+Título: Actualización del Makefile para orquestación de scripts y correcciones
+
+Descripción Corta: Integrar los nuevos scripts de Bash del Sprint 2 al Makefile principal para facilitar la ejecución y corregir bugs de integración en los scripts de prueba.
+
+Criterios de Aceptación:
+
+1. Nuevos Targets: make store-secret, make run-secure y make run-insecure ejecutan los scripts correspondientes sin pasos manuales.
+
+Corrección de Bugs: El script run-bad-example.sh ejecuta correctamente tras corregir la referencia a la imagen Docker (app-secret-store:v1).
+
+
+Responsable(s): Poma Walter
+
