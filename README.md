@@ -15,7 +15,8 @@
 <!-- • Se espera que a lo largo de los 10 días se vea la evolución real del flujo (no llenar todo  -->
 <!-- al final). -->
 Proyecto 3 : Air Gapped Secret Store and Inyectors
-Tablero de kanban:
+VIDEO_EXPOSICION: https://1drv.ms/v/c/fdb226ef3c2e079a/IQAcwgpzYlZzS5ChB69mOtTmAZhH8Mcl3BxE8b3gnue4sfM?e=LiNYYp
+Tablero de kanban:https://github.com/users/MjsaMax/projects/13/views/1
 
 Proyecto enfocado en el uso de secretos e inyecciön de estos en un contenedor.
 
@@ -53,5 +54,6 @@ pasos: cd secrets/ ,
 Crea un secreto con passphrase ingresado: python secrets_cli.py store API_TOKEN ContenidoSecreto
 Lista secretos: python secrets_cli.py list
 Obtiene secreto usando passphrase: python secrets_cli.py get API_TOKEN
+
 
 
